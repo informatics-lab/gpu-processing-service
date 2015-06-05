@@ -1,2 +1,2 @@
 # gpu-processing-service
-A service that takes and returns images, but which processes the data using a WebGL/NodeJS pass.
+A service that takes and returns images, which processes the data using Vispy.
