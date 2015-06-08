@@ -91,7 +91,7 @@ float getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
         //Get the voxel intensity value from the 3D texture.    
         dataSample = getRGBAfromDataTex(dataTexture, currentPosition, dataShape, textureShape);
         //Store the alpha accumulated so far.
-        accumulatedAlpha += dataSample.a;
+        accumulatedAlpha += (1.0 - accumulatedAlpha) * dataSample.a;
     
         //Advance the ray.
         currentPosition += deltaDirection;
