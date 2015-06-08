@@ -4,6 +4,8 @@ from vispy import gloo
 from vispy.io import imsave
 import OpenGL.GL as gl
 from scipy import misc
+import os
+homeDir = os.path.dirname(__file__)
 
 def getCloudTexture(imgPath, imgWidth, imgHeight):
 	'''
@@ -115,8 +117,10 @@ def drawShadows(inputFile='/Users/rachel/Downloads/cloud_frac_padded_623_812_70_
 	c = app.Canvas(show=False, size=(width, height))
 
 	cloudTex = getCloudTexture(inputFile, width, height)
-	vertex = getShader('shadow_vertex.glsl')
-	fragment = getShader('shadow_frag.glsl')
+	vertexPath = os.path.join(homeDir, 'shadow_vertex.glsl')
+	fragmentPath = os.path.join(homeDir, 'shadow_frag.glsl')
+	vertex = getShader(vertexPath)
+	fragment = getShader(fragmentPath)
 
 	program = mkProgram(vertex, fragment, cloudTex, dataShape=dataShape, textureShape=textureShape, tileLayout=tileLayout)
 	setLightPosition(program, lightPosition)
