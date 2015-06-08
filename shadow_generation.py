@@ -70,7 +70,7 @@ def setLightPosition(program, position):
 	@type program: gloo.Program
 	@type position: 3-tuple
 	'''
-	program['lightPosition'] = position
+	program['lightDirection'] = position
 
 def setResolution(program, steps, alphaScale):
 	'''
@@ -83,7 +83,7 @@ def setResolution(program, steps, alphaScale):
 	program['alphaCorrection'] = alphaScale/float(steps)
 
 def drawShadows(inputFile='/Users/rachel/Downloads/cloud_frac_padded_623_812_70_4096_4096.png',
-				outputFile='/Users/rachel/Downloads/shadow.png',
+				outputFile='/Users/rachel/Downloads/newshadow.png',
 				lightPosition=(20, 0, 0),
 				dataShape=(623, 812, 70),
 				textureShape=(4096, 4096),

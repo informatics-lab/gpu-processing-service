@@ -3,7 +3,7 @@ precision mediump float;
 uniform sampler2D dataTexture;
 // the texCoords passed in from the vertex shader.
 varying vec2 v_texCoord;
-uniform vec3 lightPosition;
+uniform vec3 lightDirection;
 uniform vec3 dataShape;
 uniform int nSlices;
 uniform int nSlicesPerRow;
@@ -62,10 +62,10 @@ vec4 getRGBAfromDataTex(sampler2D tex, vec3 pos, vec3 dataShape, vec2 texShape){
     float alpha = getDatumAlpha(datum);
     return vec4(color.xyz, alpha);
 }
-float getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
+float getPathRGBA(vec3 startPos, vec3 dir, float steps, sampler2D tex){
     /* Calculates the total RGBA values of a given path through a texture */
     //The direction from the front position to back position.
-    vec3 dir = endPos - startPos;
+    //vec3 dir = endPos - startPos;
     //vec3 dir = vec3(0.0,0.0,1.0);
 
     float rayLength = length(dir);
@@ -124,9 +124,9 @@ void main() {
    vec3 rPoint = mapTo3D(rInCoord, sliceW, sliceH, nSlicesPerRow, nSlices);
    vec3 bPoint = mapTo3D(bInCoord, sliceW, sliceH, nSlicesPerRow, nSlices);
    vec3 gPoint = mapTo3D(gInCoord, sliceW, sliceH, nSlicesPerRow, nSlices);
-   float rOut = getPathRGBA(rPoint, lightPosition, steps, dataTexture);
-   float bOut = getPathRGBA(bPoint, lightPosition, steps, dataTexture);
-   float gOut = getPathRGBA(gPoint, lightPosition, steps, dataTexture);
+   float rOut = getPathRGBA(rPoint, lightDirection, steps, dataTexture);
+   float bOut = getPathRGBA(bPoint, lightDirection, steps, dataTexture);
+   float gOut = getPathRGBA(gPoint, lightDirection, steps, dataTexture);
    vec3 absorbed = vec3(rOut, gOut, bOut);
    vec3 light = vec3(1.0) - absorbed;
    gl_FragColor = vec4(absorbed, 1.0);
